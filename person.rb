@@ -17,7 +17,7 @@ class Person
     @age = 0 if @age.negative?
   end
 
-  def of_age?
+  def is_of_age?
     @age >= 18
   end
 end
