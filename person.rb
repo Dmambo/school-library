@@ -1,21 +1,24 @@
 class Person
-  attr_accessor :name, :age
-  attr_reader :id
-
-  def initialize(age, parent_permission: true, name = 'Unknown')
-    @id = rand(1..1000)
-    @name = name
-    @age = age
-    @parent_permission = parent_permission
+    def initialize(age, name: 'Unknown', parent_permission: true)
+      @age = age
+      @name = name
+      @parent_permission = parent_permission
+    end
+  
+    def can_use_services?
+      @parent_permission || is_of_age?
+    end
+  
+    def validate_name
+      raise 'NameError: name should only contain alphabets' unless @name.match?(/\A[a-zA-Z]*\z/)
+    end
+  
+    def validate_age
+      raise 'AgeError: Invalid age' unless @age.is_a?(Integer)
+    end
+  
+    def is_of_age?
+      @age >= 18
+    end
   end
-
-  def can_use_services?
-    of_age? || @parent_permission
-  end
-
-  private
-
-  def of_age?
-    @age >= 18
-  end
-end
+  
