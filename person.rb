@@ -1,23 +1,13 @@
-class Person
-  def initialize(age, name = 'Unknown', parent_permission: true)
+require_relative 'nameable'
+
+class Person < Nameable
+  def initialize(age, name)
+    super()
     @age = age
     @name = name
-    @parent_permission = parent_permission
   end
 
-  def can_use_services?
-    @parent_permission || is_of_age?
-  end
-
-  def validate_name
-    @name = 'Unknown' if @name.nil?
-  end
-
-  def validate_age
-    @age = 0 if @age.negative?
-  end
-
-  def is_of_age?
-    @age >= 18
+  def correct_name
+    @name
   end
 end
