@@ -27,7 +27,6 @@ person2 = Person.new('Bob')
 Rental.new(Date.today, book1, person1)
 Rental.new(Date.today, book2, person2)
 
-
 # Print rentals of a person
 puts "#{person1.name}'s rentals:"
 person1.rentals.each do |rental|
