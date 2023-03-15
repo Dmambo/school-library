@@ -1,14 +1,7 @@
-require_relative 'person'
+class Student
+  attr_accessor :name, :classroom
 
-class Student < Person
-  attr_reader :classroom
-
-  def initialize(age, classroom, **rest)
-    super(age, **rest)
-    @classroom = classroom
-  end
-
-  def play_hooky
-    '¯\\_(ツ)_/¯'
+  def initialize(name, last_name)
+    @name = "#{name} #{last_name}"
   end
 end
