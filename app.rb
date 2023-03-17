@@ -24,7 +24,9 @@ class App
       when 4 then create_book
       when 5 then create_rental
       when 6 then list_rentals_for_person
-      when 7 then break
+      when 7
+        puts "Thanks for using this app"
+        exit
       else puts 'Invalid option, try again.'
       end
     end
@@ -43,12 +45,14 @@ class App
     puts '5. Create a rental'
     puts '6. List rentals for a given person id'
     puts "7. Quit\n"
+    puts
   end
 
   def list_books
     puts 'List of all books:'
     @books.each do |book|
       puts "Title: #{book.title}, Author: #{book.author}\n"
+      puts
     end
   end
 
@@ -56,6 +60,7 @@ class App
     puts 'List of all people:'
     @people.each do |person|
       puts "[#{person.class}] name: #{person.name}, ID: #{person.id}, age: #{person.age}\n"
+      puts
     end
   end
 
@@ -70,6 +75,7 @@ class App
     else
       puts 'Invalid option, try again.'
     end
+    puts
   end
 
   def create_student
@@ -83,6 +89,7 @@ class App
     student = Student.new(name, age, parent_permission)
     @people << student
     puts "#{student.name} has been added to the system.\n"
+    puts
   end
 
   def create_teacher
@@ -96,6 +103,7 @@ class App
     teacher = Teacher.new(name, age, specialization)
     @people << teacher
     puts "#{teacher.name} has been added to the system.\n"
+    puts
   end
 
   def create_book
@@ -107,6 +115,7 @@ class App
     book = Book.new(title, author)
     @books << book
     puts "#{book.title} has been added to the system.\n"
+    puts
   end
 
   def create_rental
@@ -135,6 +144,7 @@ class App
     rental = Rental.new(book, person, start_date)
     @rentals << rental
     puts "Rental created successfully\n"
+    puts
   end
 
   def list_rentals_for_person
@@ -148,6 +158,7 @@ class App
     rentals = @rentals.select { |rental| rental.person == person }
     rentals.each do |rental|
       puts "Rentals:\n Date: #{rental.date}, Book: #{rental.book.title} by #{rental.book.author}\n"
+      puts
     end
   end
 
