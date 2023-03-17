@@ -1,13 +1,14 @@
-require_relative 'nameable'
+class Person
+  attr_accessor :name, :age, :parent_permission, :rentals
 
-class Person < Nameable
-  def initialize(age, name)
-    super()
-    @age = age
+  def initialize(name, age, parent_permission: true)
     @name = name
+    @age = age
+    @parent_permission = parent_permission
+    @rentals = []
   end
 
-  def correct_name
-    @name
+  def add_rental(book, date)
+    Rental.new(date, book, self)
   end
 end
