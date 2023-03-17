@@ -25,7 +25,7 @@ class App
       when 5 then create_rental
       when 6 then list_rentals_for_person
       when 7
-        puts "Thanks for using this app"
+        puts 'Thanks for using this app'
         exit
       else puts 'Invalid option, try again.'
       end
@@ -45,7 +45,6 @@ class App
     puts '5. Create a rental'
     puts '6. List rentals for a given person id'
     puts "7. Quit\n"
-    puts
   end
 
   def list_books
