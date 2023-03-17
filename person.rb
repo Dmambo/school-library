@@ -1,10 +1,11 @@
 class Person
-  attr_accessor :name, :age, :parent_permission, :rentals
+  attr_accessor :name, :age, :rentals, :id
 
-  def initialize(name, age, parent_permission: true)
+  def initialize(name, age, parent_permission)
     @name = name
     @age = age
     @parent_permission = parent_permission
+    @id = rand(1..1000)
     @rentals = []
   end
 
