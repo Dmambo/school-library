@@ -4,6 +4,7 @@ require_relative 'book'
 require_relative 'rental'
 require_relative 'person'
 require 'date'
+require 'json'
 
 class App
   def initialize
@@ -171,5 +172,26 @@ class App
 
   def find_rental_by_id(id)
     @rentals.find { |rental| rental.id == id }
+  end
+
+  
+  def save_data
+    File.write('books.json', JSON.generate(@books))
+    File.write('people.json', JSON.generate(@people))
+    File.write('rentals.json', JSON.generate(@rentals))
+  end
+
+  def load_data
+    @books = load_json_file('books.json')
+    @people = load_json_file('people.json')
+    @rentals = load_json_file('rentals.json')
+  end
+
+  def load_json_file(file_name)
+    if File.exist?(file_name)
+      JSON.parse(File.read(file_name))
+    else
+      []
+    end
   end
 end

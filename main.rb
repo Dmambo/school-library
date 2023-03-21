@@ -4,6 +4,7 @@ class Main
   def initialize
     @app = App.new
     @hash = init_hash
+    @app.load_data
   end
 
   def init_hash
@@ -40,6 +41,8 @@ class Main
 
       puts @hash[option].call
       puts "\n"
+    ensure
+      @app.save_data
     end
   end
 end
