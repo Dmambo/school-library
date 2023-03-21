@@ -13,9 +13,8 @@ class App
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
-  def run(menu)
+  def run(_menu)
     loop do
-      print 'hello'
       display_menu
       choice = gets.chomp.to_i
       case choice
@@ -36,16 +35,14 @@ class App
 
   def list_books
     puts 'List of all books:'
-    @books.each do |book|
-      # puts "Title: #{book.title}, Author: #{book.author}\n"
+    @books.each do |_book|
       puts
     end
   end
 
   def list_people
     puts 'List of all people:'
-    @people.each do |person|
-      # puts "[#{person.class}] name: #{person.name}, ID: #{person.id}, age: #{person.age}\n"
+    @people.each do |_person|
       puts
     end
   end
@@ -105,6 +102,16 @@ class App
   end
 
   def create_rental
+    book = select_book
+    person = select_person
+    start_date = select_start_date
+    rental = Rental.new(book, person, start_date)
+    @rentals << rental
+    puts "Rental created successfully\n"
+    puts
+  end
+
+  def select_book
     puts 'Select a book from the following list (enter the corresponding number):'
     @books.each.with_index(1) do |book, i|
       puts "#{i}. #{book.title} by #{book.author}"
@@ -113,8 +120,12 @@ class App
     book = @books[book_choice - 1]
     if book.nil?
       puts 'Invalid book selection.'
-      return
+      return select_book
     end
+    book
+  end
+
+  def select_person
     puts 'Select a person from the following list (enter the corresponding number):'
     @people.each.with_index(1) do |person, i|
       puts "#{i}. [#{person.class}] name: #{person.name}, ID: #{person.id}, age: #{person.age}"
@@ -123,14 +134,17 @@ class App
     person = @people[person_choice - 1]
     if person.nil?
       puts 'Invalid person selection.'
-      return
+      return select_person
     end
+    person
+  end
+
+  def select_start_date
     puts 'Enter the date the rental starts (yyyy-mm-dd):'
-    start_date = Date.parse(gets.chomp)
-    rental = Rental.new(book, person, start_date)
-    @rentals << rental
-    puts "Rental created successfully\n"
-    puts
+    Date.parse(gets.chomp)
+  rescue ArgumentError
+    puts 'Invalid date format.'
+    select_start_date
   end
 
   def list_rentals
@@ -142,8 +156,7 @@ class App
       return
     end
     rentals = @rentals.select { |rental| rental.person == person }
-    rentals.each do |rental|
-      # puts "Rentals:\n Date: #{rental.date}, Book: #{rental.book.title} by #{rental.book.author}\n"
+    rentals.each do |_rental|
       puts
     end
   end
@@ -160,4 +173,3 @@ class App
     @rentals.find { |rental| rental.id == id }
   end
 end
-

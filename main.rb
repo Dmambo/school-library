@@ -3,29 +3,21 @@ require_relative 'app'
 class Main
   def initialize
     @app = App.new
-    @hash = { 1 =>
-      proc do
-        @app.list_books
-      end, 2 =>
-      proc do
-        @app.list_people
-      end, 3 =>
-      proc do
-        @app.create_person
-      end, 4 =>
-      proc do
-        @app.create_book
-      end, 5 =>
-      proc do
-        @app.create_rental
-      end, 6 =>
-      proc do
-        @app.list_rentals
-      end, 7 =>
-      proc do
+    @hash = init_hash
+  end
+
+  def init_hash
+    {
+      1 => proc { @app.list_books },
+      2 => proc { @app.list_people },
+      3 => proc { @app.create_person },
+      4 => proc { @app.create_book },
+      5 => proc { @app.create_rental },
+      6 => proc { @app.list_rentals },
+      7 => proc {
         puts 'Thank you for using this app!'
         exit
-      end
+      }
     }
   end
 

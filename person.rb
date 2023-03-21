@@ -14,6 +14,6 @@ class Person
   end
 
   def to_s
-    "[#{self.class}] name: #{self.name}, ID: #{self.id}, age: #{self.age}\n"
+    "[#{self.class}] name: #{name}, ID: #{id}, age: #{age}\n"
   end
 end
