@@ -3,6 +3,25 @@ require_relative 'app'
 class Main
   def initialize()
     @app = App.new
+    @hash = { 1 =>
+    proc do
+      @app.list_books
+    end, 2 =>
+    proc do
+      @app.list_people
+    end, 3 =>
+    proc do
+      @app.create_person
+    end, 4 =>
+    proc do
+      @app.create_book
+    end, 5 =>
+    proc do
+      @app.create_rental
+    end, 6 =>
+    proc do
+      @app.list_rentals
+    end, 7 => end_hash }
   end
 
   def display_menu
@@ -21,28 +40,18 @@ class Main
     loop do
       display_menu
       option = gets.chomp.to_i
-      
-      case option
-      when 1
-        @app.list_books
-      when 2
-        @app.list_people
-      when 3
-        @app.create_person
-      when 4
-        @app.create_book
-      when 5
-        @app.create_rental
-      when 6
-        @app.list_rentals
-      when 7
-        puts 'Thank you for using this app'
-        break
-      else
-        puts 'Invalid option'
-      end
 
+      puts @hash[option].call
       puts "\n"
+    end
+  end
+
+  private
+
+  def end_hash
+    proc do
+      puts 'Thank you for using this app!'
+      exit
     end
   end
 end
