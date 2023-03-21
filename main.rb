@@ -18,25 +18,32 @@ class Main
   end
 
   def run
-    # loop do
-    # display_menu
-    choice = gets.chomp.to_i
+    loop do
+      display_menu
+      option = gets.chomp.to_i
+      
+      case option
+      when 1
+        @app.list_books
+      when 2
+        @app.list_people
+      when 3
+        @app.create_person
+      when 4
+        @app.create_book
+      when 5
+        @app.create_rental
+      when 6
+        @app.list_rentals
+      when 7
+        puts 'Thank you for using this app'
+        break
+      else
+        puts 'Invalid option'
+      end
 
-    # make dictionary for the options
-    choice_options = {
-      1 => @app.list_books,
-      2 => @app.list_people,
-      3 => @app.create_person,
-      4 => @app.create_book,
-      5 => @app.create_rental,
-      6 => @app.list_rentals_for_person,
-      7 => (lambda {
-              puts 'Thank you for using this app!'
-              exit
-            })
-    }
-
-    choice_options[choice]
+      puts "\n"
+    end
   end
 end
 
