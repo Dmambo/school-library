@@ -13,8 +13,9 @@ class App
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
-  def run
+  def run(display_menu)
     loop do
+      print 'hello'
       display_menu
       choice = gets.chomp.to_i
       case choice
@@ -34,18 +35,6 @@ class App
   # rubocop:enable Metrics/CyclomaticComplexity
 
   private
-
-  def display_menu
-    puts 'Welcome to school library App'
-    puts 'Please choose an option to enter in a number'
-    puts '1. List all books'
-    puts '2. List all people'
-    puts '3. Create a person'
-    puts '4. Create a book'
-    puts '5. Create a rental'
-    puts '6. List rentals for a given person id'
-    puts "7. Quit\n"
-  end
 
   def list_books
     puts 'List of all books:'
@@ -173,5 +162,4 @@ class App
     @rentals.find { |rental| rental.id == id }
   end
 end
-app = App.new
-app.run
+
