@@ -13,4 +13,8 @@ class Book
     @rentals << rental
     rental
   end
+
+  def to_s
+    "Title: #{@title}, Author: #{@author}\n"
+  end
 end

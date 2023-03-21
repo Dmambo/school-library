@@ -12,4 +12,8 @@ class Person
   def add_rental(book, date)
     Rental.new(date, book, self)
   end
+
+  def to_s
+    "[#{self.class}] name: #{self.name}, ID: #{self.id}, age: #{self.age}\n"
+  end
 end

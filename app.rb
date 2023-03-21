@@ -12,10 +12,32 @@ class App
     @rentals = []
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
+  def run(menu)
+    loop do
+      print 'hello'
+      display_menu
+      choice = gets.chomp.to_i
+      case choice
+      when 1 then list_books
+      when 2 then list_people
+      when 3 then create_person
+      when 4 then create_book
+      when 5 then create_rental
+      when 6 then list_rentals_for_person
+      when 7
+        puts 'Thanks for using this app'
+        exit
+      else puts 'Invalid option, try again.'
+      end
+    end
+  end
+  # rubocop:enable Metrics/CyclomaticComplexity
+
   def list_books
     puts 'List of all books:'
     @books.each do |book|
-      puts "Title: #{book.title}, Author: #{book.author}\n"
+      # puts "Title: #{book.title}, Author: #{book.author}\n"
       puts
     end
   end
@@ -23,7 +45,7 @@ class App
   def list_people
     puts 'List of all people:'
     @people.each do |person|
-      puts "[#{person.class}] name: #{person.name}, ID: #{person.id}, age: #{person.age}\n"
+      # puts "[#{person.class}] name: #{person.name}, ID: #{person.id}, age: #{person.age}\n"
       puts
     end
   end
@@ -82,7 +104,36 @@ class App
     puts
   end
 
-  def list_rentals_for_person
+  def create_rental
+    puts 'Select a book from the following list (enter the corresponding number):'
+    @books.each.with_index(1) do |book, i|
+      puts "#{i}. #{book.title} by #{book.author}"
+    end
+    book_choice = gets.chomp.to_i
+    book = @books[book_choice - 1]
+    if book.nil?
+      puts 'Invalid book selection.'
+      return
+    end
+    puts 'Select a person from the following list (enter the corresponding number):'
+    @people.each.with_index(1) do |person, i|
+      puts "#{i}. [#{person.class}] name: #{person.name}, ID: #{person.id}, age: #{person.age}"
+    end
+    person_choice = gets.chomp.to_i
+    person = @people[person_choice - 1]
+    if person.nil?
+      puts 'Invalid person selection.'
+      return
+    end
+    puts 'Enter the date the rental starts (yyyy-mm-dd):'
+    start_date = Date.parse(gets.chomp)
+    rental = Rental.new(book, person, start_date)
+    @rentals << rental
+    puts "Rental created successfully\n"
+    puts
+  end
+
+  def list_rentals
     puts 'Enter the ID of the person:'
     person_id = gets.chomp.to_i
     person = find_person_by_id(person_id)
@@ -92,7 +143,7 @@ class App
     end
     rentals = @rentals.select { |rental| rental.person == person }
     rentals.each do |rental|
-      puts "Rentals:\n Date: #{rental.date}, Book: #{rental.book.title} by #{rental.book.author}\n"
+      # puts "Rentals:\n Date: #{rental.date}, Book: #{rental.book.title} by #{rental.book.author}\n"
       puts
     end
   end
@@ -108,46 +159,5 @@ class App
   def find_rental_by_id(id)
     @rentals.find { |rental| rental.id == id }
   end
-
-  def create_rental
-    book = book_by_choice
-    if book.nil?
-      puts 'Invalid book selection.'
-      return
-    end
-
-    person = person_by_choice
-    if person.nil?
-      puts 'Invalid person selection.'
-      return
-    end
-    puts 'Enter the date the rental starts (yyyy-mm-dd):'
-    start_date = Date.parse(gets.chomp)
-    rental = Rental.new(book, person, start_date)
-    @rentals << rental
-    puts "Rental created successfully\n"
-    puts
-  end
-
-  private
-
-  def book_by_choice
-    puts 'Select a book from the following list (enter the corresponding number):'
-    @books.each.with_index(1) do |book, i|
-      puts "#{i}. #{book.title} by #{book.author}"
-    end
-
-    book_choice = gets.chomp.to_i
-    @books[book_choice - 1]
-  end
-
-  def person_by_choice
-    puts 'Select a person from the following list (enter the corresponding number):'
-    @people.each.with_index(1) do |person, i|
-      puts "#{i}. [#{person.class}] name: #{person.name}, ID: #{person.id}, age: #{person.age}"
-    end
-
-    person_choice = gets.chomp.to_i
-    @people[person_choice - 1]
-  end
 end
+

@@ -1,27 +1,32 @@
 require_relative 'app'
 
 class Main
-  def initialize()
+  def initialize
     @app = App.new
     @hash = { 1 =>
-    proc do
-      @app.list_books
-    end, 2 =>
-    proc do
-      @app.list_people
-    end, 3 =>
-    proc do
-      @app.create_person
-    end, 4 =>
-    proc do
-      @app.create_book
-    end, 5 =>
-    proc do
-      @app.create_rental
-    end, 6 =>
-    proc do
-      @app.list_rentals
-    end, 7 => end_hash }
+      proc do
+        @app.list_books
+      end, 2 =>
+      proc do
+        @app.list_people
+      end, 3 =>
+      proc do
+        @app.create_person
+      end, 4 =>
+      proc do
+        @app.create_book
+      end, 5 =>
+      proc do
+        @app.create_rental
+      end, 6 =>
+      proc do
+        @app.list_rentals
+      end, 7 =>
+      proc do
+        puts 'Thank you for using this app!'
+        exit
+      end
+    }
   end
 
   def display_menu
@@ -43,15 +48,6 @@ class Main
 
       puts @hash[option].call
       puts "\n"
-    end
-  end
-
-  private
-
-  def end_hash
-    proc do
-      puts 'Thank you for using this app!'
-      exit
     end
   end
 end
