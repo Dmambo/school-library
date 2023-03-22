@@ -10,7 +10,7 @@ class Person
   end
 
   def add_rental(book, date)
-    Rental.new(date, book, self)
+    Rental.new(book, self, date)
   end
 
   def to_s
