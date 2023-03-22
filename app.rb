@@ -4,6 +4,7 @@ require_relative 'book'
 require_relative 'rental'
 require_relative 'person'
 require 'date'
+require 'json'
 
 class App
   def initialize
@@ -11,27 +12,6 @@ class App
     @people = []
     @rentals = []
   end
-
-  # rubocop:disable Metrics/CyclomaticComplexity
-  def run(_menu)
-    loop do
-      display_menu
-      choice = gets.chomp.to_i
-      case choice
-      when 1 then list_books
-      when 2 then list_people
-      when 3 then create_person
-      when 4 then create_book
-      when 5 then create_rental
-      when 6 then list_rentals_for_person
-      when 7
-        puts 'Thanks for using this app'
-        exit
-      else puts 'Invalid option, try again.'
-      end
-    end
-  end
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   def list_books
     puts 'List of all books:'
@@ -171,5 +151,25 @@ class App
 
   def find_rental_by_id(id)
     @rentals.find { |rental| rental.id == id }
+  end
+
+  def save_data
+    File.write('books.json', JSON.generate(@books))
+    File.write('people.json', JSON.generate(@people))
+    File.write('rentals.json', JSON.generate(@rentals))
+  end
+
+  def load_data
+    @books = load_json_file('books.json')
+    @people = load_json_file('people.json')
+    @rentals = load_json_file('rentals.json')
+  end
+
+  def load_json_file(file_name)
+    if File.exist?(file_name)
+      JSON.parse(File.read(file_name))
+    else
+      []
+    end
   end
 end
