@@ -5,8 +5,8 @@ require './person'
 require './student'
 
 describe Student do
-    let(:person) { Person.new('Alice', 25, true) }
-    let(:book) { Book.new('Harry Potter', 'J.K. Rowling') }
+  let(:person) { Person.new('Alice', 25, true) }
+  let(:book) { Book.new('Harry Potter', 'J.K. Rowling') }
 
   context '#initialize' do
     it 'should create a new person instance with the given age and name' do

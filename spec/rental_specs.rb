@@ -6,7 +6,7 @@ require 'json'
 RSpec.describe Rental do
   let(:book) { Book.new('The Great Gatsby', 'F. Scott Fitzgerald') }
   let(:person) { Person.new('John Doe', 23, true) }
-  let(:rental) { Rental.new(book, person,'2023-03-16') }
+  let(:rental) { Rental.new(book, person, '2023-03-16') }
 
   describe '#initialize' do
     it 'sets the date attribute' do
