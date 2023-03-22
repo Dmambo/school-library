@@ -13,27 +13,6 @@ class App
     @rentals = []
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
-  def run(_menu)
-    loop do
-      display_menu
-      choice = gets.chomp.to_i
-      case choice
-      when 1 then list_books
-      when 2 then list_people
-      when 3 then create_person
-      when 4 then create_book
-      when 5 then create_rental
-      when 6 then list_rentals_for_person
-      when 7
-        puts 'Thanks for using this app'
-        exit
-      else puts 'Invalid option, try again.'
-      end
-    end
-  end
-  # rubocop:enable Metrics/CyclomaticComplexity
-
   def list_books
     puts 'List of all books:'
     @books.each do |_book|
@@ -174,7 +153,6 @@ class App
     @rentals.find { |rental| rental.id == id }
   end
 
-  
   def save_data
     File.write('books.json', JSON.generate(@books))
     File.write('people.json', JSON.generate(@people))
